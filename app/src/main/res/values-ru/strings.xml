@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+    <string name="app_name">AndroidProfi</string>
+    <string name="reload_button_text">Перезагрузить</string>
+    <string name="error_textview_stub">Ошибка</string>
+    <string name="undefined_error">Неизвестная ошибка</string>
+    <string name="empty_server_response_on_success">Ответа сервера пуст</string>
+    <string name="button_search">Искать</string>
+    <string name="search_hint">Новое слово</string>
+    <string name="delete_description">X</string>
+</resources>
