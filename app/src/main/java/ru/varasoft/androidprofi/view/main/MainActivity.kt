@@ -1,29 +1,29 @@
-package com.example.androidprofi.view.main
+package ru.varasoft.androidprofi.view.main
 
 import android.os.Bundle
-import android.widget.Toast
 import android.view.View.GONE
 import android.view.View.VISIBLE
+import android.widget.Toast
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.androidprofi.R
-import com.example.androidprofi.databinding.ActivityMainBinding
+import ru.varasoft.androidprofi.R
+import ru.varasoft.androidprofi.databinding.ActivityMainBinding
 import ru.varasoft.androidprofi.model.data.AppState
 import ru.varasoft.androidprofi.model.data.DataModel
 import ru.varasoft.androidprofi.view.base.BaseActivity
-import ru.varasoft.androidprofi.view.main.MainViewModel
-import ru.varasoft.androidprofi.view.main.SearchDialogFragment
 import ru.varasoft.androidprofi.view.main.adapter.MainAdapter
-import ru.varasoft.androidprofi.viewmodel.BaseViewModel
+import javax.inject.Inject
 
 class MainActivity : BaseActivity<AppState>() {
+
+    @Inject
+    internal lateinit var viewModelFactory: ViewModelProvider.Factory
 
     private lateinit var binding: ActivityMainBinding
 
     override val viewModel: MainViewModel by lazy {
-        ViewModelProvider.NewInstanceFactory().create(MainViewModel::class.java)
+        ViewModelProvider(this, viewModelFactory).get(MainViewModel::class.java)
     }
 
     private var adapter: MainAdapter? = null
@@ -35,6 +35,7 @@ class MainActivity : BaseActivity<AppState>() {
         }
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        App.component.inject(this)
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         val view = binding.root

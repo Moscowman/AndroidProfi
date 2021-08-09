@@ -5,10 +5,14 @@ import ru.varasoft.androidprofi.model.data.AppState
 import ru.varasoft.androidprofi.model.data.DataModel
 import ru.varasoft.androidprofi.model.repository.Repository
 import io.reactivex.Observable
+import ru.varasoft.androidprofi.di.NAME_LOCAL
+import ru.varasoft.androidprofi.di.NAME_REMOTE
+import javax.inject.Inject
+import javax.inject.Named
 
-class MainInteractor(
-    private val remoteRepository: Repository<List<DataModel>>,
-    private val localRepository: Repository<List<DataModel>>
+class MainInteractor @Inject constructor (
+    @Named(NAME_REMOTE) private val remoteRepository: Repository<List<DataModel>>,
+    @Named(NAME_LOCAL) private val localRepository: Repository<List<DataModel>>
 ) : Interactor<AppState> {
 
     override fun getData(word: String, fromRemoteSource: Boolean): Observable<AppState> {

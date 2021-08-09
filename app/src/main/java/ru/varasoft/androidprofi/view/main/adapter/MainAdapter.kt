@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.androidprofi.databinding.ActivityMainRecyclerviewItemBinding
+import ru.varasoft.androidprofi.databinding.ActivityMainRecyclerviewItemBinding
 import ru.varasoft.androidprofi.model.data.DataModel
 
 class MainAdapter(private var onListItemClickListener: OnListItemClickListener, private var data: List<DataModel>) :

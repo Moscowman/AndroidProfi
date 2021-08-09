@@ -7,13 +7,11 @@ import ru.varasoft.androidprofi.model.datasource.DataSourceLocal
 import ru.varasoft.androidprofi.model.datasource.DataSourceRemote
 import ru.varasoft.androidprofi.model.repository.RepositoryImplementation
 import ru.varasoft.androidprofi.viewmodel.BaseViewModel
+import javax.inject.Inject
 
-class MainViewModel(
-    private val interactor: MainInteractor = MainInteractor(
-        RepositoryImplementation(DataSourceRemote()),
-        RepositoryImplementation(DataSourceLocal())
-    ),
-) : BaseViewModel<AppState>()  {
+class MainViewModel @Inject constructor(
+    private val interactor: MainInteractor
+) : BaseViewModel<AppState>() {
 
     fun subscribe(): LiveData<AppState> {
         return liveDataForViewToObserve

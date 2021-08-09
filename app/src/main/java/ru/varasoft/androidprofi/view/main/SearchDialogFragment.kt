@@ -8,7 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import com.example.androidprofi.databinding.SearchDialogFragmentBinding
+import ru.varasoft.androidprofi.databinding.SearchDialogFragmentBinding
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.textfield.TextInputEditText
 import ru.varasoft.androidprofi.utils.getEmptyString
