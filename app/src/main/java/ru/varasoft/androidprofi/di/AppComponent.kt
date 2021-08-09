@@ -21,5 +21,5 @@ interface AppComponent {
 
     fun inject(app: App)
 
-    fun inject(actitivy: MainActivity)
+    fun inject(activity: MainActivity)
 }

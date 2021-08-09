@@ -7,6 +7,7 @@ import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import geekbrains.ru.translator.application.App
 import ru.varasoft.androidprofi.R
 import ru.varasoft.androidprofi.databinding.ActivityMainBinding
 import ru.varasoft.androidprofi.model.data.AppState
