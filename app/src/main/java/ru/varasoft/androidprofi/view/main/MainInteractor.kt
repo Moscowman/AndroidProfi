@@ -1,25 +1,22 @@
 package ru.varasoft.androidprofi.view.main
 
-import ru.varasoft.androidprofi.viewmodel.Interactor
 import ru.varasoft.androidprofi.model.data.AppState
 import ru.varasoft.androidprofi.model.data.DataModel
 import ru.varasoft.androidprofi.model.repository.Repository
-import io.reactivex.Observable
-import ru.varasoft.androidprofi.di.NAME_LOCAL
-import ru.varasoft.androidprofi.di.NAME_REMOTE
-import javax.inject.Inject
-import javax.inject.Named
+import ru.varasoft.androidprofi.viewmodel.Interactor
 
-class MainInteractor @Inject constructor (
-    @Named(NAME_REMOTE) private val remoteRepository: Repository<List<DataModel>>,
-    @Named(NAME_LOCAL) private val localRepository: Repository<List<DataModel>>
+class MainInteractor (
+    private val remoteRepository: Repository<List<DataModel>>,
+    private val localRepository: Repository<List<DataModel>>
 ) : Interactor<AppState> {
 
-    override fun getData(word: String, fromRemoteSource: Boolean): Observable<AppState> {
-        return if (fromRemoteSource) {
-            remoteRepository.getData(word).map { AppState.Success(it) }
-        } else {
-            localRepository.getData(word).map { AppState.Success(it) }
-        }
+    override suspend fun getData(word: String, fromRemoteSource: Boolean): AppState {
+        return AppState.Success(
+            if (fromRemoteSource) {
+                remoteRepository
+            } else {
+                localRepository
+            }.getData(word)
+        )
     }
 }
