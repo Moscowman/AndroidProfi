@@ -1,15 +1,11 @@
-package ru.varasoft.androidprofi.view.main
+package ru.varasoft.androidprofi.viewmodel
 
 import androidx.lifecycle.LiveData
 import io.reactivex.observers.DisposableObserver
 import ru.varasoft.androidprofi.model.data.AppState
-import ru.varasoft.androidprofi.model.datasource.DataSourceLocal
-import ru.varasoft.androidprofi.model.datasource.DataSourceRemote
-import ru.varasoft.androidprofi.model.repository.RepositoryImplementation
-import ru.varasoft.androidprofi.viewmodel.BaseViewModel
-import javax.inject.Inject
+import ru.varasoft.androidprofi.view.main.MainInteractor
 
-class MainViewModel @Inject constructor(
+class MainViewModel(
     private val interactor: MainInteractor
 ) : BaseViewModel<AppState>() {
 
