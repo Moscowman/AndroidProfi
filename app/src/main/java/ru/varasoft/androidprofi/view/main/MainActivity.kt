@@ -1,27 +1,28 @@
 package ru.varasoft.androidprofi.view.main
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
-import androidx.recyclerview.widget.LinearLayoutManager
+import org.koin.android.viewmodel.ext.android.viewModel
 import ru.varasoft.androidprofi.R
 import ru.varasoft.androidprofi.databinding.ActivityMainBinding
 import ru.varasoft.androidprofi.model.data.AppState
 import ru.varasoft.androidprofi.model.data.DataModel
+import ru.varasoft.androidprofi.view.base.BaseActivity
 import ru.varasoft.androidprofi.view.main.adapter.MainAdapter
 import ru.varasoft.androidprofi.viewmodel.MainViewModel
-import org.koin.android.viewmodel.ext.android.viewModel
 
-class MainActivity : AppCompatActivity() {
-
-    private lateinit var binding: ActivityMainBinding
+class MainActivity : BaseActivity<AppState, MainInteractor, ActivityMainBinding>() {
 
     lateinit var viewModel: MainViewModel
 
     private var adapter: MainAdapter? = null
+
+    override val bindingInflater: (LayoutInflater) -> ActivityMainBinding = ActivityMainBinding::inflate
+
     private val onListItemClickListener: MainAdapter.OnListItemClickListener =
         object : MainAdapter.OnListItemClickListener {
             override fun onItemClick(data: DataModel) {
@@ -31,7 +32,6 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityMainBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
 
@@ -52,39 +52,8 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    fun renderData(appState: AppState) {
-        when (appState) {
-            is AppState.Success -> {
-                val dataModel = appState.data
-                if (dataModel == null || dataModel.isEmpty()) {
-                    showErrorScreen(getString(R.string.empty_server_response_on_success))
-                } else {
-                    showViewSuccess()
-                    if (adapter == null) {
-                        binding.mainActivityRecyclerview.layoutManager =
-                            LinearLayoutManager(applicationContext)
-                        binding.mainActivityRecyclerview.adapter =
-                            MainAdapter(onListItemClickListener, dataModel)
-                    } else {
-                        adapter!!.setData(dataModel)
-                    }
-                }
-            }
-            is AppState.Loading -> {
-                showViewLoading()
-                if (appState.progress != null) {
-                    binding.progressBarHorizontal.visibility = VISIBLE
-                    binding.progressBarRound.visibility = GONE
-                    binding.progressBarHorizontal.progress = appState.progress
-                } else {
-                    binding.progressBarHorizontal.visibility = GONE
-                    binding.progressBarRound.visibility = VISIBLE
-                }
-            }
-            is AppState.Error -> {
-                showErrorScreen(appState.error.message)
-            }
-        }
+    override fun setDataToAdapter(data: List<DataModel>) {
+        adapter?.setData(data)
     }
 
     private fun showErrorScreen(error: String?) {
@@ -97,24 +66,21 @@ class MainActivity : AppCompatActivity() {
 
     private fun showViewSuccess() {
         binding.successLinearLayout.visibility = VISIBLE
-        binding.loadingFrameLayout.visibility = GONE
         binding.errorLinearLayout.visibility = GONE
     }
 
     private fun showViewLoading() {
         binding.successLinearLayout.visibility = GONE
-        binding.loadingFrameLayout.visibility = VISIBLE
         binding.errorLinearLayout.visibility = GONE
     }
 
     private fun showViewError() {
         binding.successLinearLayout.visibility = GONE
-        binding.loadingFrameLayout.visibility = GONE
         binding.errorLinearLayout.visibility = VISIBLE
     }
 
     companion object {
         private const val BOTTOM_SHEET_FRAGMENT_DIALOG_TAG =
-            "74a54328-5d62-46bf-ab6b-cbf5fgt0-092395"
+            "74a54328-5d62-46bf-ab6b-cbf4fgt0-092395"
     }
 }

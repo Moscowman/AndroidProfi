@@ -9,4 +9,11 @@
     <string name="button_search">Искать</string>
     <string name="search_hint">Новое слово</string>
     <string name="delete_description">X</string>
+    <string name="error_stub">Ошибка</string>
+    <string name="dialog_button_cancel">Отменить</string>
+    <string name="dialog_title_stub">Неизвестная ошибка</string>
+    <string name="dialog_title_device_is_offline">Нет соединения с Интернетом</string>
+    <string name="dialog_message_device_is_offline">Вы не можете использовать это приложение без Интернета. Проверьте соединение с Интернетом.
+    </string>
+    <string name="dialog_tittle_sorry">Прошу прощения</string>
 </resources>
